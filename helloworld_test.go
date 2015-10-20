@@ -17,6 +17,8 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+var router = hello.SetupRoutes()
+
 func testRequest(t *testing.T, url string) {
 	resp, err := http.Get(url)
 	defer resp.Body.Close()
@@ -30,7 +32,7 @@ func testRequest(t *testing.T, url string) {
 
 
 func TestRunEmptyWithEnv(t *testing.T) {
-	router := hello.SetupRoutes()
+	
 	req, _ := http.NewRequest("GET", "/ping", nil)
 	resp := httptest.NewRecorder()
 	router.ServeHTTP(resp, req)
