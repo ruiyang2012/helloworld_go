@@ -23,8 +23,7 @@ func stringInSlice(str string, list []string) bool {
 	return false
 }
 
-// This function's name is a must. App Engine uses it to drive the requests properly.
-func init() {
+func SetupRoutes() *gin.Engine {
 	// Starts a new Gin instance with no middle-ware
 	r := gin.New()
 
@@ -123,8 +122,12 @@ func init() {
 		c.String(200, strconv.Itoa(count.Count))
 	})
 
+	return r
+}
 
+// This function's name is a must. App Engine uses it to drive the requests properly.
+func init() {
 	// Handle all requests using net/http
-	http.Handle("/", r)
+	http.Handle("/", SetupRoutes())
 }
 
