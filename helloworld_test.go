@@ -2,7 +2,6 @@ package hello_test
 
 // to run test: goapp test  github.com/ruiyang2012/helloworld_go/
 
-
 import (
 	"github.com/ruiyang2012/helloworld_go"
 
@@ -24,8 +23,8 @@ func TestRunEmptyWithEnv(t *testing.T) {
 	resp := httptest.NewRecorder()
 	router.ServeHTTP(resp, req)
 
-	assert.Equal(t, resp.Body.String(), "pong")	
-	
+	assert.Equal(t, resp.Body.String(), "pong")
+
 }
 
 func TestRunV1Count(t *testing.T) {
@@ -39,6 +38,6 @@ func TestRunV1Count(t *testing.T) {
 	resp := httptest.NewRecorder()
 	router.ServeHTTP(resp, req)
 
-	assert.Equal(t, resp.Body.String(), "0")	
-	
+	assert.Equal(t, resp.Body.String(), "0")
+
 }
