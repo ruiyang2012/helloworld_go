@@ -40,4 +40,24 @@ func TestRunV1Count(t *testing.T) {
 
 	assert.Equal(t, resp.Body.String(), "0")
 
+	req1, e1 := inst.NewRequest("POST", "/v1/count/add/15", nil)
+	assert.NoError(t, e1)
+	resp1 := httptest.NewRecorder()
+	router.ServeHTTP(resp1, req1)
+
+	assert.Equal(t, resp1.Body.String(), "15")
+
+	req2, e2 := inst.NewRequest("POST", "/v1/count/subtract/13", nil)
+	assert.NoError(t, e2)
+	resp2 := httptest.NewRecorder()
+	router.ServeHTTP(resp2, req2)
+
+	assert.Equal(t, resp2.Body.String(), "2")
+
+	req3, e3 := inst.NewRequest("POST", "/v1/count/multiple/3", nil)
+	assert.NoError(t, e3)
+	resp3 := httptest.NewRecorder()
+	router.ServeHTTP(resp3, req3)
+
+	assert.Equal(t, resp3.Body.String(), "6")
 }
