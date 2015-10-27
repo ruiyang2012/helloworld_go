@@ -4,6 +4,7 @@ import (
 	"appengine"
 	"appengine/datastore"
 	"github.com/gin-gonic/gin"
+	"github.com/ascend-io/authorization_tool"
 	"net/http"
 	"strconv"
 )
@@ -31,8 +32,13 @@ func SetupRoutes() *gin.Engine {
 	r.GET("/", func(c *gin.Context) {
 		c.String(200, "Hello World!")
 	})
+
 	r.GET("/ping", func(c *gin.Context) {
-		c.String(200, "pong")
+		if ascendioauth.Authorize(c.Request) {
+			c.String(200, "pong")
+			return
+		}
+		c.String(404, "not authorized to this url")
 	})
 
 	r.GET("/v1/count", func(c *gin.Context) {
